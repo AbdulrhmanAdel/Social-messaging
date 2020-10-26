@@ -1,0 +1,62 @@
+<div class="row">
+  <div class="col-sm-4">
+    <h1>Your Profile</h1>
+  </div>
+  <div class="col-sm-8">
+    <div class="alert alert-info pb-0" [hidden]="!f.dirty">
+      <p><strong>Information:</strong> You have made changes. Any unsaved changes will be lost.</p>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-4">
+    <div class="card">
+      <img class="profile-image img-thumbnail" src="{{ photoUrl }}" alt="{{user.knownAs}}">
+      <div class="card-body">
+        <div>
+          <strong>Location:</strong>
+          <p>{{user.city}}, {{user.country}}</p>
+        </div>
+        <div>
+          <strong>Age:</strong>
+          <p>{{user.age}}</p>
+        </div>
+        <div>
+          <strong>Last Active:</strong>
+          <p>{{user.lastActive | timeAgo}}</p>
+        </div>
+        <div>
+          <strong>Member Since:</strong>
+          <p>{{ user.created | date: 'mediumDate' }}</p>
+        </div>
+    </div>
+    <button form="f" class="btn btn-primary btn-block" [disabled]="!f.dirty">Save Changes</button>
+  </div>
+  </div>
+  <div class="col-sm-8">
+    <div class="tab-panel">
+      <tabset class="member-tabset">
+        <tab heading="Edit Profile" id="tab1">
+          <form #f="ngForm" (ngSubmit)="updateUser()" id="f">
+          <h4>Introduction</h4>
+          <input class="form-control" name="introduction" [(ngModel)]="user.introduction">
+          <h4>Looking For</h4>
+          <input class="form-control" name="lookingFor" [(ngModel)]="user.lookingFor">
+          <h4>Interests</h4>
+          <input class="form-control" name="interests" [(ngModel)]="user.interests">
+          <h4>Location Details</h4>
+          <div class="form-inline mt-3">
+            <label for="city">City</label>
+            <input class="form-control ml-1" type="text" name="city" [(ngModel)]="user.city">
+            <label for="country">Country</label>
+            <input class="form-control ml-1" type="text" name="country" [(ngModel)]="user.country">
+          </div>
+        </form>
+        </tab>
+        <tab heading="Edit Photos" id="tab3">
+         <app-photo-editer [photos]="user.photos" (photoChange)="updateMainPhoto($event)"></app-photo-editer>
+        </tab>
+      </tabset>
+    </div>
+  </div>
+</div>

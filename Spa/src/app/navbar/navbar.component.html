@@ -1,0 +1,41 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" [routerLink]="['home']" routerLinkActive="">Dating App</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['members']" >Members</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link"  [routerLink]="['list']">Lists</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link"  [routerLink]="['messages']">Messages</a>
+        </li>
+      </ul>
+
+      <ul *ngIf="loggedIn()" class="nav navbar-nav">
+        <li>
+          <img src="{{ photoUrl }}" alt="">
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Welocome {{ userName | titlecase }}</a>
+          <div class="dropdown-menu" aria-labelledby="dropdown01">
+            <a class="dropdown-item" [routerLink]="['/members/edit/']" routerLinkActive="router-link-active" ><i class="fa fa-user"></i> Edit Profile</a>
+            <hr>
+            <a class="dropdown-item" href="#" (click)="logout()" ><i class="fa fa-sign-out"></i> Log Out</a>
+          </div>
+        </li>
+      </ul>
+      <form *ngIf="!loggedIn()" #loginform="ngForm" (ngSubmit)="login()" class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="text" placeholder="Username" aria-label="Username" name="username" [(ngModel)]="model.username" required>
+        <input class="form-control mr-sm-2" type="password" placeholder="Password" aria-label="Password" name="password" [(ngModel)]="model.password" required>
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit" [disabled]="!loginform.valid">Sign In</button>
+      </form>
+    </div>
+  </div>
+</nav>

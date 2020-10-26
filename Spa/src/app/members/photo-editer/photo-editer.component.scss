@@ -1,0 +1,23 @@
+img .img-thumbnail {
+  height: 100px !important;
+  width: 100px !important;
+  margin-bottom: 2px;
+  max-width: 100px !important;
+  max-height: 100px !important;
+}
+.drop-zone {
+  padding: 10px;
+  background-color: #f0f3f7;
+  border-radius: 5px;
+  border: 1px black solid;
+}
+
+/* Default class applied to drop zones on over */
+.nv-file-over {
+  border: dotted 3px red;
+}
+
+input[type=file] {
+  color: transparent;
+}
+

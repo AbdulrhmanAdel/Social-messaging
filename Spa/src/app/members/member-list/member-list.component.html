@@ -1,0 +1,66 @@
+  <!-- header -->
+
+<div class="row">
+  <div class="text-center">
+    <h2>Your matches - {{ pagination.totalItems }} found</h2>
+  </div>
+</div>
+
+    <!-- HTML for filters -->
+
+<div class="row">
+  <form class="form-inline" novalidate (ngSubmit)="loadUsers()" #form="ngForm">
+    <div class="form-group">
+      <label for="minAge">Age From</label>
+      <input type="number" class="form-control" style="width: 70px" id="minAge" name="minAge" [(ngModel)]="userParams.minAge">
+    </div>
+
+    <div class="form-group ml-1 mr-1">
+      <label for="maxAge">Age To</label>
+      <input type="number" class="form-control" style="width: 70px" id="maxAge" name="maxAge" [(ngModel)]="userParams.maxAge">
+    </div>
+
+    <div class="form-group">
+      <label for="gender">Show: </label>
+      <select class="form-control" style="width: 130px" id="gender" name="gender" [(ngModel)]="userParams.gender">
+        <option *ngFor="let gender of genderList" value="{{gender.value}}">
+          {{gender.display}}
+        </option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary" style="margin-left:10px">Apply Filters</button>
+    <button type="button" class="btn btn-info" style="margin-left:10px" (click)="resetFilters()">Reset Filter</button>
+  </form>
+  <div class="ml-10">
+    <label style="margin-right: 10px">Order By: </label>
+    <div class="btn-group">
+      <button type="button" name="orderBy" [(ngModel)]="userParams.orderBy" (click)="loadUsers()"
+        class="btn btn-primary mr-2" btnRadio="lastActive">Last Active</button>
+      <button type="button" name="orderBy" class="btn btn-primary" [(ngModel)]="userParams.orderBy" btnRadio="created" (click)="loadUsers()">Newest Members</button>
+    </div>
+  </div>
+</div>
+<br>
+
+
+    <!-- HTML for ordering -->
+
+
+<div class="container">
+    <div class="row equal">
+        <div *ngFor="let user of users" class="col-lg-2 col-md-3 col-sm-6">
+            <app-member-card [user]="user" ></app-member-card>
+        </div>
+    </div>
+</div>
+<div class="row">
+  <div class="col-md-8 offset-md-2 mt-3">
+    <pagination [boundaryLinks]="true"
+      [(ngModel)]="pagination.currentPage"
+      [totalItems]="pagination.totalItems"
+      [itemsPerPage]="pagination.itemsPerPage"
+      (pageChanged)="pageChanged($event)"
+      previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+    </pagination>
+  </div>
+</div>

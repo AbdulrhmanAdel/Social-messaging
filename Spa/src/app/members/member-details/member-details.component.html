@@ -1,0 +1,54 @@
+<div class="row">
+  <h1>{{user?.knownAs}}'s Profile</h1>
+</div>
+<div class="row">
+  <div class="col-sm-4">
+    <div class="card">
+      <img class="profile-image img-thumbnail" src="{{user?.photoUrl}}" alt="{{user?.knownAs}}">
+      <div class="card-body">
+        <div>
+          <strong>Location:</strong>
+          <p>{{user.city}}, {{user?.country}}</p>
+        </div>
+        <div>
+          <strong>Age:</strong>
+          <p>{{user.age}}</p>
+        </div>
+        <div>
+          <strong>Last Active:</strong>
+          <p>{{user.lastActive | timeAgo}}</p>
+        </div>
+        <div>
+          <strong>Member Since:</strong>
+          <p>{{user.created | date: 'mediumDate'}}</p>
+        </div>
+    </div>
+    <div class="btn-group">
+      <button class="btn btn-primary ml-1 mr-1">Like</button>
+      <button class="btn btn-success mr-1" (click)="selectTab(3)">Message</button>
+    </div>
+  </div>
+  </div>
+  <div class="col-sm-8">
+    <div class="tab-panel">
+      <tabset class="member-tabset" #membertabs>
+        <tab heading="About {{user.knownAs}}" id="tab1">
+          <h4>Description</h4>
+          <p>{{user.introduction}}</p>
+          <h4>Looking For</h4>
+          <p>{{user.lookingFor}}</p>
+        </tab>
+        <tab heading="Interests" id="tab2">
+          <h4>Description</h4>
+          <p>{{user.interests}}</p>
+        </tab>
+        <tab heading="Photos" id="tab3">
+          <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
+        </tab>
+        <tab heading="Messages" id="tab4">
+         <app-member-messages [userId]="user.id" ></app-member-messages>
+        </tab>
+      </tabset>
+    </div>
+  </div>
+</div>
